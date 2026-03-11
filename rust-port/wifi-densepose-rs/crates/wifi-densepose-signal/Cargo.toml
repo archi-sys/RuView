@@ -36,9 +36,6 @@ ruvector-solver = { workspace = true }
 midstreamer-temporal-compare = { workspace = true }
 midstreamer-attractor = { workspace = true }
 
-# Internal
-wifi-densepose-core = { version = "0.3.0", path = "../wifi-densepose-core" }
-
 [dev-dependencies]
 criterion = { version = "0.5", features = ["html_reports"] }
 proptest.workspace = true
