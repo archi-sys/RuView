@@ -4549,7 +4549,6 @@ dependencies = [
  "tracing",
  "tracing-subscriber",
  "uuid",
- "wifi-densepose-mat",
 ]
 
 [[package]]
@@ -4620,7 +4619,6 @@ dependencies = [
  "tokio-test",
  "tracing",
  "uuid",
- "wifi-densepose-core",
  "wifi-densepose-nn",
  "wifi-densepose-signal",
 ]

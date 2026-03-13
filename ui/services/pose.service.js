@@ -1,4 +1,4 @@
-// Pose Service for WiFi-DensePose UI
+﻿// Pose Service for WiFi-DensePose UI
 
 import { API_CONFIG } from '../config/api.config.js';
 import { apiService } from './api.service.js';
@@ -30,8 +30,8 @@ export class PoseService {
       enableValidation: true,
       enablePerformanceTracking: true,
       maxValidationErrors: 10,
-      confidenceThreshold: 0.3,
-      confidenceThresholdModelInference: 0.15,
+      confidenceThreshold: 0.05,
+      confidenceThresholdModelInference: 0.05,
       maxPersons: 10,
       timeoutMs: 5000
     };
@@ -303,6 +303,12 @@ export class PoseService {
           });
           break;
 
+        case 'sensing_update':
+          const sc = { persons: data.persons||[], estimated_count: data.estimated_persons||0, zone_summary:{zone_1:{person_count:(data.persons||[]).length}}, vital_signs:data.vital_signs||{}, classification:data.classification||{}, timestamp:data.timestamp, source:data.source||'auratrack' };
+          this.lastPoseData = sc;
+          this.notifyPoseSubscribers({ type: 'pose_update', data: sc });
+          break;
+
         case 'pose_data':
           this.logger.debug('Processing pose data', { zone_id, hasData: !!actualData });
           
@@ -489,10 +495,10 @@ export class PoseService {
 
   // Convert zone-based WebSocket data to REST API format
   convertZoneDataToRestFormat(zoneData, zoneId, originalMessage) {
-    console.log('🔧 Converting zone data:', { zoneData, zoneId, originalMessage });
+    console.log('ðŸ”§ Converting zone data:', { zoneData, zoneId, originalMessage });
     
     if (!zoneData || !zoneData.pose) {
-      console.log('⚠️ No pose data in zone data, returning empty result');
+      console.log('âš ï¸ No pose data in zone data, returning empty result');
       return {
         timestamp: originalMessage.timestamp || new Date().toISOString(),
         frame_id: `ws_frame_${Date.now()}`,
@@ -521,7 +527,7 @@ export class PoseService {
     if (zoneId && persons.length > 0) {
       zoneSummary[zoneId] = persons.length;
     }
-    console.log('📍 Zone summary:', zoneSummary);
+    console.log('ðŸ“ Zone summary:', zoneSummary);
 
     const result = {
       timestamp: originalMessage.timestamp || new Date().toISOString(),
@@ -539,7 +545,7 @@ export class PoseService {
       }
     };
     
-    console.log('✅ Final converted result:', result);
+    console.log('âœ… Final converted result:', result);
     return result;
   }
 
@@ -748,3 +754,7 @@ export class PoseService {
 
 // Create singleton instance
 export const poseService = new PoseService();
+
+
+
+
