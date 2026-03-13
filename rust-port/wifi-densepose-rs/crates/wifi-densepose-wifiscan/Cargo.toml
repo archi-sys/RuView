@@ -21,7 +21,7 @@ serde = { workspace = true, optional = true }
 # Async runtime (optional, for Tier 2 async scanning)
 tokio = { workspace = true, optional = true }
 wifi-densepose-signal.workspace = true
-wifi-densepose-nn.workspace = true
+wifi-densepose-nn.workspace = true-
 wifi-densepose-mat.workspace = true
 wifi-densepose-hardware.workspace = true
 wifi-densepose-ruvector = { workspace = true, features = ["crv"] }

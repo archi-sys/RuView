@@ -21,7 +21,6 @@ mat = []
 
 [dependencies]
 # Internal crates
-wifi-densepose-mat = { version = "0.3.0", path = "../wifi-densepose-mat" }
 
 # CLI framework
 clap = { version = "4.4", features = ["derive", "env", "cargo"] }
